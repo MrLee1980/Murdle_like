@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  /* 案情档案配色：褪色纸面 + 黑墨 + 单一绯红强调 */
+  --color-paper: #b0c6b3;
+  --color-sheet: #f2f0e2;
+  --color-sheet-dim: #e7e6d6;
+  --color-ink: #17170f;
+  --color-ink-soft: rgba(23, 23, 15, 0.62);
+  --color-ink-faint: rgba(23, 23, 15, 0.14);
+  --color-crimson: #db3356;
+  --color-crimson-deep: #b02345;
+
+  /* 字体角色分离：UI 无衬线 / 楷体批注 / 等宽编号 */
+  --font-ui: "Avenir Next", -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-hand: "Kaiti SC", "STKaiti", "KaiTi", "Songti SC", serif;
+  --font-case: ui-monospace, "SF Mono", "DM Mono", Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  /* 制图网格线：实线 + 虚线交织，暗示绘图纸纹理（SVG 内联，无外部图片） */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cg stroke='%2317170f' stroke-opacity='0.07' fill='none'%3E%3Cpath d='M0 0.5H96M0.5 0V96'/%3E%3Cpath d='M48 0V96M0 48H96' stroke-dasharray='1 5'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 中文强调不用斜体：用字重/字距/颜色 */
+.tracking-case {
+  letter-spacing: 0.22em;
+}
+
+/* 图钉 */
+.pin-dot {
+  box-shadow: 0 1px 2px rgba(23, 23, 15, 0.45), inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* 档案划线（线索已排除） */
+.struck {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--color-crimson);
+  opacity: 0.45;
+}
+
+/* 竖排表头（CJK 类别名） */
+.vertical-cjk {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.15em;
+}
+
+::selection {
+  background: var(--color-crimson);
+  color: var(--color-sheet);
+}

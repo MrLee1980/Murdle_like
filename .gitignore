@@ -1,0 +1,17 @@
+# 依赖
+node_modules/
+
+# 构建产物
+apps/web/dist/
+*.tsbuildinfo
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# 环境
+.env
+.env.local

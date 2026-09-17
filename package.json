@@ -1,0 +1,16 @@
+{
+  "name": "murdle-like",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "npm run test -w @murdle/puzzle-core",
+    "typecheck": "npm run typecheck -w @murdle/puzzle-core",
+    "demo": "npm run demo -w @murdle/puzzle-core",
+    "dev": "npm run dev -w @murdle/web",
+    "build": "npm run build -w @murdle/web"
+  }
+}
