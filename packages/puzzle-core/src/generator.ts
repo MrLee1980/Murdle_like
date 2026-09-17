@@ -159,10 +159,12 @@ export function generatePuzzle(config: GeneratorConfig = {}): Puzzle {
     // 6. 渲染 + 打乱顺序
     const clues = shuffled(selected, rng).map((c) => ({ ...c, text: renderClue(c, theme, K, rng) }));
 
-    // 7. 文学层：案情提要（不泄露答案）+ 结案陈词（指向凶手的关键证据）
+    // 7. 文学层：案情提要（明示案发现场与时段，使真凶可推导，不点名是谁）+ 结案陈词
     const culpritSlot = randInt(rng, N);
     const options = theme.categories.slice(0, K).map((c) => c.options.slice(0, N));
-    const story = buildStory(theme, K, N, options, rng);
+    const scene = options[2]![solution[2]!.findIndex((s) => s === culpritSlot)]!;
+    const time = K === 4 ? options[3]![solution[3]!.findIndex((s) => s === culpritSlot)]! : undefined;
+    const story = buildStory(theme, K, N, options, scene, time, rng);
     const puzzle: Puzzle = {
       categoryCount: K,
       optionCount: N,

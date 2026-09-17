@@ -18,25 +18,25 @@ const join = (xs: string[]) => xs.join('、');
 /** 各主题的案情提要模板（{victim} {occasion} {suspects} {locations} 占位） */
 const STORY_TEMPLATES: Record<string, string[]> = {
   manor: [
-    '昨夜雷雨交加，{victim}在{occasion}散场后被人发现死于非命，门窗却是从内反锁的。当时滞留庄园的{suspects}人人有嫌疑，{locations}每一处都可能藏着行凶的踪迹。',
-    '{victim}一向为人刻薄，{occasion}当晚却殷勤得出奇。宴席散尽，他倒在血泊之中——{suspects}谁也没有不在场证明，{locations}在雷声里静默了整整一夜。',
+    '昨夜雷雨交加，{victim}在{occasion}散场后被发现死于{scene}，门窗却是从内反锁的。当时滞留庄园的{suspects}人人有嫌疑——谁当时身处{scene}，谁就是最大的嫌疑人。',
+    '{victim}一向为人刻薄，{occasion}当晚却殷勤得出奇。宴席散尽，他倒在了{scene}——{suspects}谁也没有不在场证明，而凶器，就藏在其中某个人手里。',
   ],
   station: [
-    '{occasion}的警报声划破了空间站的寂静：{victim}被发现死于舱内，氧气读数却没有异常。当时值勤的{suspects}各执一词，{locations}的监控偏偏全部离线。',
-    '{victim}生前最后一次通话只说了半句「别信——」便中断了。{occasion}期间接触过他的{suspects}都有嫌疑，{locations}每一个舱门都留有刷卡记录，却拼不出完整的路线。',
+    '{occasion}的警报声划破了空间站的寂静：{victim}被发现死于{scene}，氧气读数却没有异常。当时值勤的{suspects}各执一词，而{scene}舱门离线前最后的刷卡记录，会说出谁曾进出。',
+    '{victim}生前最后一次通话只说了半句「别信——」便中断了。{occasion}期间接触过他的{suspects}都有嫌疑，{scene}的舱门留有刷卡记录，却拼不出一条完整的路线。',
   ],
   palace: [
-    '{occasion}笙歌正酣，{victim}却在赐酒之后七窍流血而亡。御前当值的{suspects}跪了一地，{locations}处处挂着灯笼，照得见金碧辉煌，照不见人心。',
-    '{victim}暴毙的消息被连夜封锁。{occasion}上献过艺、敬过酒的{suspects}都被留在了宫中，{locations}的每一扇门后，都藏着一句没说出口的供词。',
+    '{occasion}笙歌正酣，{victim}却在赐酒之后被发现倒在{scene}，七窍流血而亡。御前当值的{suspects}跪了一地——谁能说清{scene}里发生过什么，谁才能洗清自己。',
+    '{victim}暴毙的消息被连夜封锁。{occasion}上献过艺、敬过酒的{suspects}都被留在了宫中，{scene}的每一扇门后，都藏着一句没说出口的供词。',
   ],
   festival: [
-    '{occasion}进行到一半，{victim}倒在了后台，手里还攥着半张节目单。案发时留在现场的{suspects}互相指认，{locations}人来人往，却没有一个人承认自己最后见过他。',
-    '{victim}本来要在{occasion}上宣布一件大事，却再也没能登台。{suspects}都有机会下手，{locations}的喧闹掩盖了所有声响，只剩彩灯还在一闪一闪。',
+    '{occasion}进行到一半，{victim}倒在了{scene}，手里还攥着半张节目单。案发时留在现场的{suspects}互相指认，最后见过他的人，就藏在人群之中。',
+    '{victim}本来要在{occasion}上宣布一件大事，却再也没能离开{scene}。{suspects}都有机会下手，喧闹掩盖了所有声响，只剩彩灯还在一闪一闪。',
   ],
 };
 
 const STORY_FALLBACK =
-  '{victim}在{occasion}期间遇害。当时在场的{suspects}都有嫌疑，{locations}处处留有痕迹。';
+  '{victim}在{occasion}期间遇害，尸体在{scene}被发现。当时在场的{suspects}都有嫌疑。';
 
 const CLOSERS: Record<string, string[]> = {
   manor: [
@@ -57,26 +57,33 @@ const CLOSERS: Record<string, string[]> = {
   ],
 };
 
+/**
+ * 生成案情提要。
+ * @param scene 案发现场名（= 真凶槽位的地点），明示给玩家 —— 凶手即推理出
+ *              案发时身处该现场的人，凶器即与现场绑定的物品，指控目标由此可推导
+ * @param time  作案时段（K=4 时提供，= 真凶槽位的时段）
+ */
 export function buildStory(
   theme: Theme,
   K: number,
   N: number,
   options: string[][],
+  scene: string,
+  time: string | undefined,
   rng: Rng,
 ): string {
   const templates = STORY_TEMPLATES[theme.id] ?? [STORY_FALLBACK];
   const tpl = templates[randInt(rng, templates.length)] ?? STORY_FALLBACK;
   const suspects = join(options[0]!.slice(0, N));
-  const locations = join(options[2]!.slice(0, N));
   const body = tpl
     .replaceAll('{victim}', theme.victim)
     .replaceAll('{occasion}', theme.occasion)
     .replaceAll('{suspects}', suspects)
-    .replaceAll('{locations}', locations);
+    .replaceAll('{scene}', scene);
   const goal =
-    K === 4
-      ? '作为负责此案的侦探，你必须找出真凶、凶器、案发现场与作案时段。'
-      : '作为负责此案的侦探，你必须找出真凶、凶器与案发现场。';
+    K === 4 && time
+      ? `作为负责此案的侦探，你必须找出作案时段（${time}）身处${scene}的真凶与凶器。`
+      : `作为负责此案的侦探，你必须找出案发时身处${scene}的真凶与凶器。`;
   return `${body}${goal}`;
 }
 
