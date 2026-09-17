@@ -104,6 +104,8 @@ export default function GamePage({ mode }: { mode: 'campaign' | 'daily' }) {
           <LogicGrid puzzle={puzzle} derived={derived} />
           <p className="mt-4 text-center text-xs text-ink-soft">
             点按格子循环 ✓ → ✗ → 清空；右键直接打 ✗；半透明墨迹为自动推论。
+            <br />
+            案发现场（与作案时段）见右侧「案情提要」——当时身处现场的人与物，即真凶与凶器。
           </p>
         </div>
         <div className="w-full shrink-0 lg:w-80">

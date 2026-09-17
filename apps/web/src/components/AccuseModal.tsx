@@ -70,6 +70,9 @@ export default function AccuseModal({
             </header>
 
             <div className="space-y-4 px-5 py-4">
+              <p className="border-ink/40 bg-sheet-dim border px-3 py-2 font-hand text-sm text-ink-soft">
+                案发地点与作案时段已写在「案情提要」里——推理出那时身处现场的人，与现场绑定之物，就是你的指控目标。
+              </p>
               {puzzle.categories.map((cat, c) => (
                 <fieldset key={cat.id}>
                   <legend className="mb-1.5 font-case text-[11px] tracking-case uppercase">{cat.name}</legend>

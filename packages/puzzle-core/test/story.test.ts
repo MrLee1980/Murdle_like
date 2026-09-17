@@ -7,15 +7,42 @@ import { solveFromClues } from '../src/humanSolver.js';
 import { countSolutions } from '../src/solver.js';
 
 describe('案情文学层', () => {
-  it('案情提要：含受害者与场合，不点名真凶', () => {
+  it('案情提要：含受害者、场合与案发现场，不点名真凶', () => {
     for (const theme of THEMES) {
       const options = theme.categories.map((c) => c.options.slice(0, 4));
-      const story = buildStory(theme, 3, 4, options, createRng('story-test'));
+      const story = buildStory(theme, 3, 4, options, options[2]![1], undefined, createRng('story-test'));
       expect(story).toContain(theme.victim);
       expect(story).toContain(theme.occasion);
+      expect(story).toContain(options[2]![1]!); // 案发现场明示
       // 不泄露：不声称任何嫌疑人是凶手
       expect(story).not.toMatch(/真凶是|凶手是/);
       expect(story.length).toBeGreaterThan(60);
+    }
+  });
+
+  it('凶手可判定性：案情提要的场景 = culpritSlot 的地点，配合全解网格可推出真凶与凶器', () => {
+    for (let i = 0; i < 12; i++) {
+      const p = generatePuzzle({ difficulty: 'medium', seed: `derivable:${i}` });
+      // 案情提要明示的案发地点必须是真凶槽位的地点
+      const sceneOpt = p.solution[2]!.findIndex((s) => s === p.culpritSlot);
+      expect(p.story).toContain(p.options[2]![sceneOpt]!);
+      // 类人求解器推出完整网格后，现场对应的人与物唯一确定（凶手可判定）
+      const { solved, marks } = solveFromClues(p.categoryCount, p.optionCount, p.clues);
+      expect(solved).toBe(true);
+      const key = (a: { cat: number; opt: number }, b: { cat: number; opt: number }) =>
+        a.cat <= b.cat ? `${a.cat}:${a.opt}|${b.cat}:${b.opt}` : `${b.cat}:${b.opt}|${a.cat}:${a.opt}`;
+      const locOpt = p.solution[2]!.findIndex((s) => s === p.culpritSlot);
+      const loc = { cat: 2, opt: locOpt };
+      const suspectsAtScene = p.options[0]!
+        .map((_, o) => o)
+        .filter((o) => marks.get(key({ cat: 0, opt: o }, loc)) === 'yes');
+      const weaponsAtScene = p.options[1]!
+        .map((_, o) => o)
+        .filter((o) => marks.get(key({ cat: 1, opt: o }, loc)) === 'yes');
+      expect(suspectsAtScene).toHaveLength(1);
+      expect(weaponsAtScene).toHaveLength(1);
+      expect(suspectsAtScene[0]).toBe(p.solution[0]!.findIndex((s) => s === p.culpritSlot));
+      expect(weaponsAtScene[0]).toBe(p.solution[1]!.findIndex((s) => s === p.culpritSlot));
     }
   });
 
