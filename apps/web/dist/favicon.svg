@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<rect width="100" height="100" rx="14" fill="rgb(219, 51, 86)"/>
+<rect x="5" y="5" width="90" height="90" rx="10" fill="none" stroke="rgb(23, 23, 15)" stroke-width="2.5"/>
+<text x="50" y="50" font-size="56" font-family="'Noto Sans SC','PingFang SC',sans-serif" font-weight="700" fill="rgb(242, 240, 226)" text-anchor="middle" dominant-baseline="central">疑</text>
+</svg>
