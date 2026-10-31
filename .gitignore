@@ -15,3 +15,6 @@ Thumbs.db
 # 环境
 .env
 .env.local
+
+# 本地密钥/凭据（勿提交）
+.secrets/
