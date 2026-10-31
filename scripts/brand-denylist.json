@@ -1,0 +1,11 @@
+{
+  "note": "发布前品牌词门禁。terms 中的词不得出现在任何对外产物中；allowlist 仅限内部合规记录文档（不得随包分发、不得截图对外）。",
+  "terms": ["murdle", "妙探寻凶", "karber"],
+  "allowlist": [
+    "docs/COPYRIGHT_CLEARANCE.md",
+    "docs/WECHAT_MINIGAME_PLAN.md",
+    "scripts/brand-denylist.json"
+  ],
+  "errorPaths": ["apps/web/dist"],
+  "skipDirs": ["node_modules", ".git", ".secrets", ".turbo", "coverage"]
+}

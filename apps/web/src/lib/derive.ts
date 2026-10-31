@@ -6,8 +6,8 @@
  * - derived: merged 中「非玩家手打、非线索直接给出」的幽灵标记（自动推论，半透明显示）
  * - conflicts: 玩家标记与线索矛盾（或玩家自相矛盾）的格子，红色高亮
  */
-import { applyClues, propagate, ContradictionError, type Mark } from '@murdle/puzzle-core';
-import type { EntityRef, Puzzle } from '@murdle/puzzle-core';
+import { applyClues, propagate, ContradictionError, type Mark } from '@yianbu/puzzle-core';
+import type { EntityRef, Puzzle } from '@yianbu/puzzle-core';
 
 export function markKey(e1: EntityRef, e2: EntityRef): string {
   const [a, b] = e1.cat <= e2.cat ? [e1, e2] : [e2, e1];

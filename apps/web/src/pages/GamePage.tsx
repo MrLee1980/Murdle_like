@@ -3,7 +3,7 @@
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { generatePuzzle, THEMES, type Puzzle } from '@murdle/puzzle-core';
+import { generatePuzzle, THEMES, type Puzzle } from '@yianbu/puzzle-core';
 import { ArrowLeft } from 'lucide-react';
 import { deriveState } from '../lib/derive';
 import { useGameStore } from '../stores/gameStore';

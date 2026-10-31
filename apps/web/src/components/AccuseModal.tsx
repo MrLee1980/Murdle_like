@@ -3,7 +3,7 @@
  */
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { Puzzle } from '@murdle/puzzle-core';
+import type { Puzzle } from '@yianbu/puzzle-core';
 import { useGameStore } from '../stores/gameStore';
 
 export default function AccuseModal({

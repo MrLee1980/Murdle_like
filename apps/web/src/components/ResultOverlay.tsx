@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Star, Share2 } from 'lucide-react';
-import type { Puzzle } from '@murdle/puzzle-core';
+import type { Puzzle } from '@yianbu/puzzle-core';
 import { formatMs } from '../lib/derive';
 import { starsFor, useGameStore } from '../stores/gameStore';
 import { useProgressStore } from '../stores/progressStore';

@@ -1,5 +1,5 @@
 {
-  "name": "murdle-like",
+  "name": "yianbu",
   "private": true,
   "version": "0.1.0",
   "workspaces": [
@@ -7,10 +7,12 @@
     "apps/*"
   ],
   "scripts": {
-    "test": "npm run test -w @murdle/puzzle-core",
-    "typecheck": "npm run typecheck -w @murdle/puzzle-core",
-    "demo": "npm run demo -w @murdle/puzzle-core",
-    "dev": "npm run dev -w @murdle/web",
-    "build": "npm run build -w @murdle/web"
+    "test": "npm run test -w @yianbu/puzzle-core",
+    "typecheck": "npm run typecheck -w @yianbu/puzzle-core",
+    "demo": "npm run demo -w @yianbu/puzzle-core",
+    "dev": "npm run dev -w @yianbu/web",
+    "build": "npm run build -w @yianbu/web",
+    "check:brand": "node scripts/check-brand.mjs",
+    "check:brand:dist": "node scripts/check-brand.mjs --dist"
   }
 }

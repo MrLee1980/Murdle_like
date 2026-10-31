@@ -2,7 +2,7 @@
  * 进行中的对局状态（Zustand，不持久化 —— 刷新即重开一局）。
  */
 import { create } from 'zustand';
-import { getHint, type Hint, type Mark, type Puzzle } from '@murdle/puzzle-core';
+import { getHint, type Hint, type Mark, type Puzzle } from '@yianbu/puzzle-core';
 import { markKey } from '../lib/derive';
 
 export type GamePhase = 'solving' | 'accusing' | 'won' | 'lost';

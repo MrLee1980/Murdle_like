@@ -3,7 +3,7 @@
  * 绯红图钉。点击划线表示「已用过这条线索」。
  */
 import { useState } from 'react';
-import type { Puzzle } from '@murdle/puzzle-core';
+import type { Puzzle } from '@yianbu/puzzle-core';
 
 /** 由线索索引确定性地分配微小倾角（±1.6° 内） */
 function tiltOf(i: number): number {

@@ -3,7 +3,7 @@
  * ✓ 用绯红墨水笔触，✗ 用黑墨；自动推论标记半透明显示；矛盾格红底。
  */
 import { memo } from 'react';
-import type { Mark, Puzzle } from '@murdle/puzzle-core';
+import type { Mark, Puzzle } from '@yianbu/puzzle-core';
 import { markKey, type DerivedState } from '../lib/derive';
 import { useGameStore } from '../stores/gameStore';
 

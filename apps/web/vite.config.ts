@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: '疑案簿 · 逻辑推理档案',
         short_name: '疑案簿',
-        description: '类 Murdle 的逻辑网格推理游戏：嫌疑人 × 凶器 × 地点（× 时段），程序生成、唯一解、无需猜测。',
+        description: '原创逻辑网格推理游戏：嫌疑人 × 凶器 × 地点（× 时段），程序生成、唯一解、无需猜测。',
         lang: 'zh-CN',
         theme_color: '#b0c6b3',
         background_color: '#b0c6b3',
